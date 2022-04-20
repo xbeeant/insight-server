@@ -1,0 +1,63 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.6'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'io.github.xbeeant'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    }
+}
+
+repositories {
+    maven {
+        url "https://maven.aliyun.com/repository/public"
+    }
+    maven {
+        url "https://s01.oss.sonatype.org/content/groups/public/"
+    }
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-json'
+    }
+
+    implementation 'io.github.xbeeant:mybatis-pagehelper:1.0.0-SNAPSHOT'
+    implementation 'io.github.xbeeant:crypto:1.0.0-SNAPSHOT'
+    implementation 'io.github.xbeeant:serializer:1.0.0-SNAPSHOT'
+    implementation 'io.github.xbeeant:antdesign:1.0.0-SNAPSHOT'
+    implementation 'io.github.xbeeant:mdc:1.0.0-SNAPSHOT'
+    implementation 'io.github.xbeeant:aop:1.0.0-SNAPSHOT'
+    implementation 'io.github.xbeeant:core:1.0.0-SNAPSHOT'
+    implementation 'io.github.xbeeant:http:1.0.0-SNAPSHOT'
+
+    implementation group: 'org.flywaydb', name: 'flyway-core', version: '8.5.8'
+
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.6.2'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
+    implementation 'com.lmax:disruptor:3.4.4'
+
+    implementation group: 'com.alibaba', name: 'druid-spring-boot-starter', version: '1.2.6'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
